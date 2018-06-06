@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>Canvas Test</title>
+ <style>
+  body {
+   background-color: white;
+  }
+ </style>
+</head>
+<body>
+  <div class="container" style="position:relative; width:500px; height:500px;">
+    <canvas id="mainCanvas" style="border:1px solid #000000;position:relative;"></canvas>
+    <button id="clearButton" type="button" style="position:relative;" onclick="clearCanvas()">New Canvas</button>
+  </div>
+ <script>
+  var canvas = document.getElementById("mainCanvas");
+  var context = canvas.getContext("2d");
+  var height = canvas.height = 500;
+  var width = canvas.width = 500;
+  var mouseDown = false
+  var lastX = 0, lastY= 0;
+
+  //document.addEventListener("click", onMouseClick, false);
+  document.addEventListener("mousemove", onMouseMove, false);
+  document.addEventListener("mousedown", onMouseDown, false);
+  document.addEventListener("mouseup", onMouseUp, false);
+
+  document.addEventListener("touchmove", onTouchMove, false);
+  document.addEventListener("touchstart", onTouchStart, false);
+  document.addEventListener("touchend", onMouseUp, false);
+
+  function onMouseDown(e) {
+      mouseDown = true;
+      Draw(e.x - canvas.offsetLeft,e.y - canvas.offsetTop, mouseDown);
+  }
+
+  function onMouseUp(e) {
+    mouseDown = false;
+  }
+  function onMouseMove(e) {
+    Draw(e.x - canvas.offsetLeft,e.y - canvas.offsetTop, mouseDown);
+  }
+
+  function onTouchStart(e) {
+    if (e.target == canvas) {
+			e.preventDefault();
+		}
+    mouseDown = true;
+    var touch = e.touches[0];
+    lastX = touch.clientX - canvas.offsetLeft;
+    lastY = touch.clientY - canvas.offsetTop;
+    Draw(touch.clientX - canvas.offsetLeft,touch.clientY - canvas.offsetTop, mouseDown);
+
+  }
+
+  function onTouchMove(e) {
+    if (e.target == canvas) {
+      e.preventDefault();
+    }
+    var touch = e.touches[0];
+    Draw(touch.clientX - canvas.offsetLeft,touch.clientY - canvas.offsetTop, mouseDown);
+  }
+
+
+  function Draw(x, y, mouseDown) {
+    if (mouseDown) {
+      context.strokeStyle = "#000";
+      context.lineWidth = 5;
+      context.lineJoin = "round"
+      context.beginPath();
+      if(lastX === x && lastY === y) {
+        context.arc(x, y, 2, 1, 2 * Math.PI, true);
+      }
+      else {
+        context.moveTo(lastX, lastY);
+        context.lineTo(x, y);
+      }
+      context.closePath();
+      context.stroke();
+    }
+    lastX = x;
+    lastY = y;
+  }
+
+  function clearCanvas() {
+    context.clearRect(0,0,canvas.width,canvas.height);
+  }
+ </script>
+</body>
+</html>

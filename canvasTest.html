@@ -13,10 +13,20 @@
   <div class="container" style="position:relative; width:500px; height:500px;">
     <canvas id="mainCanvas"
             style="border:1px solid #000000;position:relative;cursor:pointer;"></canvas>
-    <button id="clearButton" type="button" style="position:relative;" onclick="clearCanvas()">New Canvas</button>
-    <input type="range" name="brushsize" min="1" max=:"20" id="brushRange" step="1" value="5" oninput="updateSizeText(this.value);">
-    <input type="text" id="textInput" value="5">
+    <div style="height: 200px; padding:25px;">
+      <div style="border: 2px solid black; padding:10px;" >
+      <button id="clearButton" type="button" style="position:relative;" onclick="clearCanvas()">New Canvas</button>
+      <input type="range" name="brushsize" min="1" max=:"20" id="brushRange" step="1" value="5" oninput="updateSizeText(this.value);">
+      <input type="text" id="textInput" value="5">
+      <div id="penCircleBox" style="padding-bottom:50px; padding-left:45px; padding-top:45px;">
+        <div id="penCircle" style="height: 5px; width: 5px;background-color: #000; border-radius: 50%;  "></div>
+      </div>
+     </div>
+
+    </div>
   </div>
+
+
  <script src="javascript/base.js" type="text/javascript"></script>
 </body>
 </html>

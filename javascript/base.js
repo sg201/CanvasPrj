@@ -67,7 +67,7 @@ function Draw(x, y) {
     context.lineJoin = "round"
     context.beginPath();
     if(lastX === x && lastY === y) {
-      context.arc(x, y, 2, 1, 2 * Math.PI, true);
+      context.arc(x, y, 2, 1, (2 * Math.PI), true);
     }
     else {
       context.moveTo(lastX, lastY);
@@ -95,4 +95,9 @@ brushSlider.addEventListener("change", function () {
 
 function updateSizeText(val) {
   document.getElementById("textInput").value=val;
+  document.getElementById("penCircle").style["height"]=val+"px";
+  document.getElementById("penCircle").style["width"]=val+"px";
+  document.getElementById("penCircleBox").style["padding-bottom"]=(100-val)/2+"px";
+  document.getElementById("penCircleBox").style["padding-left"]=(100-val)/2+"px";
+  document.getElementById("penCircleBox").style["padding-top"]=(100-val)/2+"px";
 }
